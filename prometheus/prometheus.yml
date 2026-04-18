@@ -1,0 +1,38 @@
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  evaluation_interval: 1m
+  external_labels:
+    environment: local
+    project: to-brasil-devops
+
+scrape_configs:
+  - job_name: app-python
+    metrics_path: /metrics
+    scheme: http
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    static_configs:
+      - targets: ["app-python:8000"]
+        labels:
+          service: app-python
+
+  - job_name: app-go
+    metrics_path: /metrics
+    scheme: http
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    static_configs:
+      - targets: ["app-go:8080"]
+        labels:
+          service: app-go
+
+  - job_name: nginx
+    metrics_path: /metrics
+    scheme: http
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    static_configs:
+      - targets: ["nginx-exporter:9113"]
+        labels:
+          service: nginx
